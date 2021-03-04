@@ -14,20 +14,38 @@ class Tree {
   // adds a child into the tree
   addChild(value) {
     // push a new tree into the current tree's children
+    let newNode = new Tree(value);
+    this.children.push(newNode);
   }
 
   // returns true/false if the value is in the tree
-  contains(value) {
+  contains(expectedValue) {
     // if the tree value matches the value passed in
     // return true
     // else
     // loop through all the children
     // call the contains method located on each child (pass the value in)
     // return false if not found at all
+
+    if (expectedValue === this.value) {
+      return true;
+    } else {
+      for (const littleChildren of this.children) {
+        if (littleChildren.contains(expectedValue) === true) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   // applies the function to each child in the tree
-  traverse(fn) {}
+  traverse(fn) {
+    fn(this);
+    for (const each of this.children) {
+      each.traverse(fn);
+    }
+  }
 
   // OPTIONAL
   //return the node with that value if found. Returns null otherwise

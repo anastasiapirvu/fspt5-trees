@@ -13,13 +13,38 @@ class BinaryTree {
 
   // adds node to left if value is less than or equal to this.value
   // adds node to right if value is greater than node
-  add(value) {}
+  add(value) {
+    if (value < this.value) {
+      if (this.left) {
+        this.left.add(value);
+      } else {
+        this.left = new BinaryTree(value);
+      }
+    } else {
+      if (this.right) {
+        this.right.add(value);
+      } else {
+        this.right = new BinaryTree(value);
+      }
+    }
+  }
 
   // returns true or false if the value is in the tree
-  contains(value) {}
+  contains(value) {
+    // if value we're looking for is equal to current value
+    // return true
+    if (this.value === value) {
+      return true;
+    } else {
+      // else return false
+      return false;
+    }
+  }
 
   // apply callback in this order: left node, current node, right node
-  traverseDepthFirstInOrder(fn) {}
+  traverseDepthFirstInOrder(fn) {
+    // let result = [];
+  }
 
   // apply callback from left to right across each level
   // hint: use a queue for this!
