@@ -36,6 +36,17 @@ class BinaryTree {
     if (this.value === value) {
       return true;
     } else {
+      if (this.left !== null) {
+        if (this.left.contains(value) === true) {
+          return true;
+        }
+      }
+      if (this.right !== null) {
+        if (this.right.contains(value) === true) {
+          return true;
+        }
+      }
+
       // else return false
       return false;
     }
@@ -43,12 +54,35 @@ class BinaryTree {
 
   // apply callback in this order: left node, current node, right node
   traverseDepthFirstInOrder(fn) {
-    // let result = [];
+    if (this.left !== null) {
+      this.left.traverseDepthFirstInOrder(fn);
+    }
+
+    fn(this);
+
+    if (this.right !== null) {
+      this.right.traverseDepthFirstInOrder(fn);
+    }
   }
 
   // apply callback from left to right across each level
   // hint: use a queue for this!
-  traverseBreadthFirst(fn) {}
+  traverseBreadthFirst(fn) {
+    const queue = [this];
+    let currentNode = null;
+
+    while (queue.length > 0) {
+      currentNode = queue.shift();
+
+      fn(currentNode);
+      if (currentNode.left !== null) {
+        queue.push(currentNode.left);
+      }
+      if (currentNode.right !== null) {
+        queue.push(currentNode.right);
+      }
+    }
+  }
 
   // OPTIONAL
   // Finds the lowest common ancestor given 2 node values
